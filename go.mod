@@ -1,3 +1,3 @@
-module apigw
+module github.com/arjunksofficial/tyk-task
 
-go 1.21 
+go 1.24.3
