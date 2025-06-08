@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apigw
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apigw
+  template:
+    metadata:
+      labels:
+        app: apigw
+    spec:
+      containers:
+        - name: apigw
+          image: {{ .Values.apigw.image }}
+          ports:
+            - containerPort: {{ .Values.apigw.port }}
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/config/local/master.yaml
+              subPath: master.yaml
+      volumes:
+        - name: config-volume
+          configMap:
+            name: apigw-config
+

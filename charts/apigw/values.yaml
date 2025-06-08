@@ -1,0 +1,10 @@
+apigw:
+  image: arjunksofficial/apigw:1.0
+  port: 8080
+
+redis:
+  image: redis:7-alpine
+  port: 6379
+
+service:
+  type: ClusterIP
