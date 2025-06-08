@@ -5,6 +5,8 @@ import (
 	"log"
 	"net/http"
 	"time"
+
+	"github.com/arjunksofficial/tyk-task/internal/metrics"
 )
 
 // A wrapper to capture response status
@@ -45,5 +47,10 @@ func LoggingMiddleware(next http.Handler) http.Handler {
 			rw.statusCode,
 			duration,
 		)
+		defer func() {
+			duration := time.Since(start).Seconds()
+			metrics.HttpRequestsTotal.WithLabelValues(r.Method, r.URL.Path).Inc()
+			metrics.RequestDuration.WithLabelValues(r.URL.Path).Observe(duration)
+		}()
 	})
 }

@@ -1,5 +1,5 @@
 app:
-  port: 9000
+  port: 9001
   name: "API Gateway"
 routes:
   - path: /api/v1/orders/
@@ -10,6 +10,6 @@ routes:
     host: http://localhost:8002
 redis:
   host: localhost
-  port: 6379
+  port: 6380
   db: 0
   password: ""
