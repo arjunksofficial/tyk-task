@@ -1,6 +1,6 @@
 # API Gateway Proxy
 
-## This is a simple API Gateway Proxy that can be used to forward requests to different services based on the request path.
+This is a simple API Gateway Proxy that can be used to forward requests to different services based on the request path.
 
 ## Features
 
@@ -43,6 +43,8 @@ redis:
   password: ""
 ```
 
+You can modify the `routes` section to add or change the services you want to proxy. The `host` should point to the service URL that the gateway will forward requests to.
+
 3. To start gateway, redis and sample server with /api/v1/orders and /api/v1/users endpoints, run the following commands:
 
 ```
@@ -82,4 +84,22 @@ You can modify the `rate_limit`, `allowed_routes`, and `duration` fields as per 
 ```
 curl -X GET http://localhost:9000/api/v1/orders/list -H "Authorization: Bearer <your_token_here>"
 curl -X GET http://localhost:9000/api/v1/users/list -H "Authorization: Bearer <your_token_here>"
+```
+
+This api gateway is using fixed window rate limiting. The rate limit is configured in the `tokendata.yaml` file.
+
+## Unit Tests
+
+To run the unit tests, you can use the following command:
+
+```bash
+make test-coverage
+```
+
+This will run the tests and generate a coverage report. The coverage report will be saved in the `coverage.out` file.
+
+You can see the coverage report by running the following command:
+
+```bash
+go tool cover -html=coverage.out
 ```
