@@ -6,10 +6,10 @@ import (
 )
 
 type TokenData struct {
-	APIKey        string   `json:"api_key"`
-	RateLimit     int      `json:"rate_limit"`
-	ExpiresAt     string   `json:"expires_at"`
-	AllowedRoutes []string `json:"allowed_routes"`
+	APIKey        string   `json:"api_key" yaml:"api_key"`
+	RateLimit     int      `json:"rate_limit" yaml:"rate_limit"`
+	ExpiresAt     string   `json:"expires_at" yaml:"expires_at"`
+	AllowedRoutes []string `json:"allowed_routes" yaml:"allowed_routes"`
 }
 
 type ContextKey string

@@ -1,0 +1,6 @@
+rate_limit: 5 # 5 requests per minute
+allowed_routes:
+  - /api/v1/users/*
+  - /api/v1/products/*
+  - /api/v1/orders/*
+duration: 3600 # 1 hour in seconds

@@ -5,5 +5,45 @@ services:
     image: redis:7-alpine
     container_name: redis
     ports:
-      - "6379:6379"
+      - "6380:6379"
     restart: unless-stopped
+    networks:
+      - gateway-net
+
+  apigw:
+    build:
+      context: ../..
+      dockerfile: cmd/apigw/Dockerfile
+    container_name: apigw
+    ports:
+      - "9000:9000"
+    depends_on:
+      - redis
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    volumes:
+      - ./config/local/master.yaml:/app/config/local/master.yaml
+    restart: unless-stopped
+    networks:
+      - gateway-net
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  sampleserver:
+    build:
+      context: ../..
+      dockerfile: cmd/sampleserver/Dockerfile
+    container_name: sampleserver
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+    depends_on:
+      - redis
+    restart: unless-stopped
+    networks:
+      - gateway-net
+
+networks:
+  gateway-net:
+    driver: bridge

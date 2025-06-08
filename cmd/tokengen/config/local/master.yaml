@@ -10,6 +10,6 @@ routes:
     host: http://localhost:8002
 redis:
   host: localhost
-  port: 6379
+  port: 6380
   db: 0
   password: ""
