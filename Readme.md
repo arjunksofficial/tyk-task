@@ -103,3 +103,19 @@ You can see the coverage report by running the following command:
 ```bash
 go tool cover -html=coverage.out
 ```
+
+## Health Check
+
+The API Gateway provides a health check endpoint to verify if the service is running correctly. You can access it at:
+
+```
+http://localhost:9000/health
+```
+
+## To access metrics
+
+The API Gateway exposes metrics that can be accessed at the following endpoint:
+
+```
+http://localhost:9000/metrics
+```
