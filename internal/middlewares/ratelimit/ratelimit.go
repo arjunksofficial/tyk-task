@@ -45,14 +45,15 @@ func (rl *RateLimitMiddleware) RateLimitHandler(next http.Handler) http.Handler 
 			}
 			return
 		}
-		// Check if the token is valid
-		if !token.IsValid() {
-			http.Error(w, "Unauthorized: Invalid API key", http.StatusUnauthorized)
+
+		expiryTime, err := time.Parse(time.RFC3339, token.ExpiresAt)
+		if err != nil {
+			http.Error(w, "Internal Server Error: Invalid token expiry format", http.StatusInternalServerError)
 			return
 		}
-		expiryTime, err := time.Parse(time.RFC3339, token.ExpiresAt)
-		if err != nil || time.Now().After(expiryTime) {
-			http.Error(w, "Token expired", http.StatusUnauthorized)
+		// Check if the token is expired
+		if time.Now().UTC().After(expiryTime) {
+			http.Error(w, "Unauthorized: Invalid API key", http.StatusUnauthorized)
 			return
 		}
 

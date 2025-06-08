@@ -4,6 +4,7 @@ import (
 	"context"
 	"net/http"
 
+	"github.com/arjunksofficial/tyk-task/internal/token/models"
 	tokenservice "github.com/arjunksofficial/tyk-task/internal/token/services"
 	"github.com/redis/go-redis/v9"
 )
@@ -48,7 +49,7 @@ func (a *AuthMiddleware) AuthMiddleware(next http.Handler) http.Handler {
 		}
 		// Set the token in the request context for further processing
 		ctx := r.Context()
-		ctx = context.WithValue(ctx, "token", token)
+		ctx = context.WithValue(ctx, models.TokenContextKey, token)
 		r = r.WithContext(ctx)
 
 		// If the API key is valid, proceed to the next handler
