@@ -31,11 +31,11 @@ var redisClient *redis.Client
 
 func GetRedisClient() *redis.Client {
 	if redisClient == nil {
-		client, err := NewRedisClient()
+		var err error
+		redisClient, err = NewRedisClient()
 		if err != nil {
 			panic("Failed to create Redis client: " + err.Error())
 		}
-		redisClient = client
 	}
 	return redisClient
 }

@@ -10,6 +10,7 @@ import (
 	"github.com/arjunksofficial/tyk-task/internal/middlewares/auth"
 	"github.com/arjunksofficial/tyk-task/internal/middlewares/logging"
 	"github.com/arjunksofficial/tyk-task/internal/middlewares/ratelimit"
+	"github.com/arjunksofficial/tyk-task/internal/ready"
 	"github.com/gorilla/mux"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
@@ -23,6 +24,7 @@ func main() {
 	router := mux.NewRouter()
 
 	router.HandleFunc("/health", healthCheckHandler).Methods("GET").Name("HealthCheck")
+	router.HandleFunc("/ready", ready.ReadyHandler).Methods("GET").Name("ReadyCheck")
 	router.Handle("/metrics", promhttp.Handler())
 	router.Use(logging.LoggingMiddleware)
 

@@ -112,10 +112,24 @@ The API Gateway provides a health check endpoint to verify if the service is run
 http://localhost:9000/health
 ```
 
+## Readiness Check
+
+The API Gateway also provides a readiness check endpoint to verify if the service is ready to accept requests. You can access it at:
+
+```
+http://localhost:9000/ready
+```
+
 ## To access metrics
 
 The API Gateway exposes metrics that can be accessed at the following endpoint:
 
 ```
+
 http://localhost:9000/metrics
+
+```
+
+```
+
 ```

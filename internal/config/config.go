@@ -74,3 +74,9 @@ func GetConfig() *Config {
 	}
 	return cfg
 }
+
+func (c *Config) IsReady() bool {
+	// Implement any readiness checks here, e.g., checking Redis connection
+	// For now, we assume the service is ready if the config is loaded
+	return c != nil && c.App.Name != "" && c.App.Port != ""
+}
